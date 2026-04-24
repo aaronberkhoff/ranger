@@ -4,11 +4,11 @@ requires = ["maturin>=1,<2"]
 build-backend = "maturin"
 
 [project]
-name = "{{project_name}}"
+name = "ranger"
 version = "0.1.0"
 description = "{{description}}"
 readme = "README.md"
-authors = [{ name = "{{author}}" }]
+authors = [{ name = "aaronberkhoff" }]
 license = { text = "MIT OR Apache-2.0" }
 requires-python = ">=3.9"
 dependencies = []
@@ -19,9 +19,9 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/{{author}}/{{project_name}}"
-Repository = "https://github.com/{{author}}/{{project_name}}"
-Documentation = "https://{{author}}.github.io/{{project_name}}"
+Homepage = "https://github.com/aaronberkhoff/ranger"
+Repository = "https://github.com/aaronberkhoff/ranger"
+Documentation = "https://aaronberkhoff.github.io/ranger"
 
 [tool.maturin]
 # Uncomment if your Python source lives in a python/ subdirectory.
