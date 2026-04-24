@@ -1,0 +1,25 @@
+[package]
+name = "ranger"
+version = "0.1.0"
+edition = "2021"
+description = "{{description}}"
+authors = ["aaronberkhoff"]
+# Keep in sync with msrv in .clippy.toml
+rust-version = "1.75.0"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/aaronberkhoff/ranger"
+
+[lib]
+name = "ranger"
+# cdylib: Python extension module (.so / .pyd) built by maturin
+# rlib: Rust library target so `cargo test` can link against the crate
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+pyo3 = { version = "0.22", features = ["extension-module"] }
+
+[dev-dependencies]
+# Better assertion output: shows left/right values on failure.
+pretty_assertions = "1"
+# Captures tracing spans/events in tests without a global subscriber.
+tracing-test = "0.2"
