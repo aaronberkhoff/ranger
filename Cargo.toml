@@ -16,7 +16,7 @@ name = "ranger"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-pyo3 = { version = "0.22", features = ["extension-module"] }
+pyo3 = { version = "0.28", features = ["extension-module"] }
 
 [dev-dependencies]
 # Better assertion output: shows left/right values on failure.
