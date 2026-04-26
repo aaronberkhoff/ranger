@@ -3,7 +3,7 @@ pub struct FullCircle(f64);
 
 impl FullCircle {
     pub fn new(radians: f64) -> Result<Self, String> {
-        if radians >= 0.0 && radians < std::f64::consts::TAU {
+        if (0.0..std::f64::consts::TAU).contains(&radians) {
             Ok(Self(radians))
         } else {
             Err(format!("{radians} is not in [0, 2π)"))
@@ -24,7 +24,7 @@ pub struct ZeroToOne(f64);
 
 impl ZeroToOne {
     pub fn new(value: f64) -> Result<Self, String> {
-        if value >= 0.0 && value < 1.0 {
+        if (0.0..1.0).contains(&value) {
             Ok(Self(value))
         } else {
             Err(format!("{value} is not in [0, 1)"))

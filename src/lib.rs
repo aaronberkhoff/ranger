@@ -1,7 +1,8 @@
 pub mod dynamics;
+pub mod error;
 pub mod frames;
 pub mod state;
-pub mod typing; 
+pub mod typing;
 use pyo3::prelude::*;
 
 /// Root Python module. Add functions, classes, and submodules here.

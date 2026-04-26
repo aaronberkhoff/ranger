@@ -34,13 +34,13 @@ fn state_clone_is_independent() {
 #[test]
 fn transform_same_frame_is_identity() {
     let state = iss_bci();
-    let result = state.transform(ReferenceFrame::BCI, 398_600.4418).unwrap();
+    let result = state.transform(ReferenceFrame::BCI, 398_600.441_8).unwrap();
     assert_eq!(result.vector, state.vector);
 }
 
 #[test]
 fn transform_unsupported_frame_returns_err() {
     let state = iss_bci();
-    let result = state.transform(ReferenceFrame::RIC, 398_600.4418);
+    let result = state.transform(ReferenceFrame::RIC, 398_600.441_8);
     assert!(result.is_err());
 }

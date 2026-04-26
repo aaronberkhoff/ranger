@@ -1,9 +1,10 @@
 // AI: 2026-04-25 - Added propagate_analytic with Keplerian two-body propagation (claude-sonnet-4-6)
 
-use nalgebra::Vector6;
-use pyo3::prelude::*;
+use crate::error::RangerError;
 use crate::frames::ReferenceFrame;
 use crate::state::State;
+use nalgebra::Vector6;
+use pyo3::prelude::*;
 
 /// COE convention: [sma, ecc, inc, arg, raan, mean_anomaly]
 #[pyclass]
@@ -24,9 +25,8 @@ impl Kepler {
     }
 
     #[pyo3(name = "propagate_analytic")]
-    pub fn py_propagate_analytic(&self, state: &State, dt: f64) -> PyResult<State> {
-        self.propagate_analytic(state, dt)
-            .map_err(|e| pyo3::exceptions::PyValueError::new_err(e))
+    pub fn py_propagate_analytic(&self, state: &State, dt: f64) -> Result<State, RangerError> {
+        self.propagate_analytic(state, dt).map_err(RangerError)
     }
 }
 
@@ -35,7 +35,12 @@ impl Kepler {
         let coe_state = match state.reference_frame {
             ReferenceFrame::COE => state.clone(),
             ReferenceFrame::BCI => state.transform(ReferenceFrame::COE, self.mu)?,
-            _ => return Err(format!("expected BCI or COE, got {:?}", state.reference_frame)),
+            _ => {
+                return Err(format!(
+                    "expected BCI or COE, got {:?}",
+                    state.reference_frame
+                ))
+            }
         };
 
         let (sma, ecc, inc, arg, raan, mean_anomaly) = (

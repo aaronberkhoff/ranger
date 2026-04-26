@@ -3,7 +3,7 @@
 use nalgebra::Vector6;
 use ranger::frames::transforms::{bci::bci_to_coe, coe::coe_to_bci};
 
-const MU: f64 = 398_600.4418;
+const MU: f64 = 398_600.441_8;
 const TOL_POS: f64 = 1e-10; // km
 const TOL_VEL: f64 = 1e-10; // km/s
 const TOL_COE: f64 = 1e-10;

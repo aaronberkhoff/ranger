@@ -24,7 +24,10 @@ fn mean_to_eccentric_satisfies_keplers_equation() {
         - eccentricity.value() * eccentric_anomaly.radians().sin()
         - mean_anomaly.radians();
 
-    assert!(residual.abs() < TOL, "Kepler residual too large: {residual}");
+    assert!(
+        residual.abs() < TOL,
+        "Kepler residual too large: {residual}"
+    );
 }
 
 #[test]
@@ -37,7 +40,10 @@ fn mean_to_eccentric_satisfies_keplers_equation_high_eccentricity() {
         - eccentricity.value() * eccentric_anomaly.radians().sin()
         - mean_anomaly.radians();
 
-    assert!(residual.abs() < TOL, "Kepler residual too large: {residual}");
+    assert!(
+        residual.abs() < TOL,
+        "Kepler residual too large: {residual}"
+    );
 }
 
 /// Verify eccentric_to_true is invertible: tan(E/2) = sqrt((1-e)/(1+e)) * tan(ν/2)
@@ -49,8 +55,8 @@ fn eccentric_to_true_is_consistent_with_inverse() {
 
     let half_nu = true_anomaly.radians() / 2.0;
     let half_e = eccentric_anomaly.radians() / 2.0;
-    let recovered_tan = ((1.0 - eccentricity.value()) / (1.0 + eccentricity.value())).sqrt()
-        * half_nu.tan();
+    let recovered_tan =
+        ((1.0 - eccentricity.value()) / (1.0 + eccentricity.value())).sqrt() * half_nu.tan();
 
     assert!(
         (recovered_tan - half_e.tan()).abs() < TOL,

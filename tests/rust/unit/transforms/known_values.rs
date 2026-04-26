@@ -3,7 +3,7 @@
 use nalgebra::Vector6;
 use ranger::frames::transforms::bci::bci_to_coe;
 
-const MU: f64 = 398_600.4418;
+const MU: f64 = 398_600.441_8;
 
 fn iss_bci() -> Vector6<f64> {
     Vector6::new(-4_453.783, -5_038.303, -426.948, 3.831, -2.887, -6.019)
@@ -52,5 +52,8 @@ fn iss_sma_is_near_leo() {
     let coe = bci_to_coe(iss_bci(), MU);
     let sma = coe[0];
     // ISS orbits at ~400 km altitude; Earth radius ~6371 km
-    assert!(sma > 6_700.0 && sma < 6_900.0, "sma not in LEO range: {sma}");
+    assert!(
+        sma > 6_700.0 && sma < 6_900.0,
+        "sma not in LEO range: {sma}"
+    );
 }

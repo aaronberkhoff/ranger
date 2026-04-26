@@ -18,8 +18,8 @@ pub fn mean_to_eccentric(mean_anomaly: FullCircle, eccentricity: ZeroToOne) -> F
 pub fn eccentric_to_true(eccentric_anomaly: FullCircle, eccentricity: ZeroToOne) -> FullCircle {
     let half_e = eccentric_anomaly.radians() / 2.0;
     let ecc = eccentricity.value();
-    let true_anomaly = 2.0 * ((1.0 + ecc).sqrt() * half_e.sin())
-        .atan2((1.0 - ecc).sqrt() * half_e.cos());
+    let true_anomaly =
+        2.0 * ((1.0 + ecc).sqrt() * half_e.sin()).atan2((1.0 - ecc).sqrt() * half_e.cos());
     FullCircle::from_radians(true_anomaly)
 }
 

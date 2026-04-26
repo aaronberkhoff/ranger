@@ -6,7 +6,7 @@ use ranger::dynamics::kepler::Kepler;
 use ranger::frames::ReferenceFrame;
 use ranger::state::State;
 
-const MU: f64 = 398_600.4418;
+const MU: f64 = 398_600.441_8;
 const TOL: f64 = 1e-10;
 
 fn iss_coe(mean_anomaly: f64) -> State {
@@ -24,9 +24,7 @@ fn orbital_period(sma: f64, mu: f64) -> f64 {
 #[test]
 fn orbital_elements_are_constant() {
     let state = iss_coe(0.5);
-    let propagated = Kepler { mu: MU }
-        .propagate_analytic(&state, 300.0)
-        .unwrap();
+    let propagated = Kepler { mu: MU }.propagate_analytic(&state, 300.0).unwrap();
 
     for index in 0..5 {
         assert!(
@@ -77,9 +75,7 @@ fn orbital_elements_are_constant_bci() {
     let state = iss_bci();
     let initial_coe = state.transform(ReferenceFrame::COE, MU).unwrap();
 
-    let propagated = Kepler { mu: MU }
-        .propagate_analytic(&state, 300.0)
-        .unwrap();
+    let propagated = Kepler { mu: MU }.propagate_analytic(&state, 300.0).unwrap();
     let propagated_coe = propagated.transform(ReferenceFrame::COE, MU).unwrap();
 
     for index in 0..5 {
@@ -93,9 +89,7 @@ fn orbital_elements_are_constant_bci() {
 #[test]
 fn energy_is_conserved_bci() {
     let state = iss_bci();
-    let propagated = Kepler { mu: MU }
-        .propagate_analytic(&state, 300.0)
-        .unwrap();
+    let propagated = Kepler { mu: MU }.propagate_analytic(&state, 300.0).unwrap();
 
     let energy = |v: &Vector6<f64>| {
         let r = v.fixed_rows::<3>(0).norm();

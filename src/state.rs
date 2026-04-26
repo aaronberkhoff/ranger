@@ -1,6 +1,7 @@
+use crate::error::RangerError;
+use crate::frames::{transforms, ReferenceFrame};
 use nalgebra::Vector6;
 use pyo3::prelude::*;
-use crate::frames::{ReferenceFrame, transforms};
 
 #[pyclass]
 #[derive(Debug, Clone)]
@@ -14,13 +15,16 @@ impl State {
     #[new]
     pub fn new(vector: Vec<f64>, frame: ReferenceFrame) -> PyResult<Self> {
         if vector.len() != 6 {
-            return Err(pyo3::exceptions::PyValueError::new_err(
-                format!("vector must have 6 elements, got {}", vector.len()),
-            ));
+            return Err(pyo3::exceptions::PyValueError::new_err(format!(
+                "vector must have 6 elements, got {}",
+                vector.len()
+            )));
         }
         Ok(State {
             reference_frame: frame,
-            vector: Vector6::new(vector[0], vector[1], vector[2], vector[3], vector[4], vector[5]),
+            vector: Vector6::new(
+                vector[0], vector[1], vector[2], vector[3], vector[4], vector[5],
+            ),
         })
     }
 
@@ -35,13 +39,16 @@ impl State {
     }
 
     #[pyo3(name = "transform")]
-    pub fn py_transform(&self, frame: ReferenceFrame, mu: f64) -> PyResult<State> {
-        self.transform(frame, mu)
-            .map_err(|e| pyo3::exceptions::PyValueError::new_err(e))
+    pub fn py_transform(&self, frame: ReferenceFrame, mu: f64) -> Result<State, RangerError> {
+        self.transform(frame, mu).map_err(RangerError)
     }
 
     pub fn __repr__(&self) -> String {
-        format!("State(frame={:?}, vector={:?})", self.reference_frame, self.vector.as_slice())
+        format!(
+            "State(frame={:?}, vector={:?})",
+            self.reference_frame,
+            self.vector.as_slice()
+        )
     }
 }
 

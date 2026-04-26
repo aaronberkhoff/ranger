@@ -6,7 +6,7 @@ use ranger::dynamics::kepler::Kepler;
 use ranger::frames::ReferenceFrame;
 use ranger::state::State;
 
-const MU: f64 = 398_600.4418;
+const MU: f64 = 398_600.441_8;
 const TOL: f64 = 1e-6;
 const TOL_BCI_POS: f64 = 1e-4; // km
 const TOL_BCI_VEL: f64 = 1e-7; // km/s
@@ -72,9 +72,7 @@ fn dt_zero_is_identity() {
 #[test]
 fn output_frame_matches_coe_input() {
     let state = iss_coe(1.0);
-    let propagated = Kepler { mu: MU }
-        .propagate_analytic(&state, 60.0)
-        .unwrap();
+    let propagated = Kepler { mu: MU }.propagate_analytic(&state, 60.0).unwrap();
     assert_eq!(propagated.reference_frame, ReferenceFrame::COE);
 }
 
@@ -109,9 +107,7 @@ fn one_period_returns_to_start_bci() {
 #[test]
 fn dt_zero_is_identity_bci() {
     let state = iss_bci();
-    let propagated = Kepler { mu: MU }
-        .propagate_analytic(&state, 0.0)
-        .unwrap();
+    let propagated = Kepler { mu: MU }.propagate_analytic(&state, 0.0).unwrap();
 
     for index in 0..6 {
         assert!(
@@ -124,8 +120,6 @@ fn dt_zero_is_identity_bci() {
 #[test]
 fn output_frame_matches_bci_input() {
     let state = iss_bci();
-    let propagated = Kepler { mu: MU }
-        .propagate_analytic(&state, 60.0)
-        .unwrap();
+    let propagated = Kepler { mu: MU }.propagate_analytic(&state, 60.0).unwrap();
     assert_eq!(propagated.reference_frame, ReferenceFrame::BCI);
 }
