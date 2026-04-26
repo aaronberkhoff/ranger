@@ -16,7 +16,12 @@ name = "ranger"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
+nalgebra = "0.33.3"
 pyo3 = { version = "0.22", features = ["extension-module"] }
+
+[[test]]
+name = "unit"
+path = "tests/rust/unit.rs"
 
 [dev-dependencies]
 # Better assertion output: shows left/right values on failure.
