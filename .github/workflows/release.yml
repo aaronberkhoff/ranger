@@ -107,7 +107,7 @@ jobs:
                   echo "dest=$DEST" >> "$GITHUB_OUTPUT"
 
             - name: Upload artifact
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v7
               with:
                   name: binary-${{ matrix.target }}
                   path: ${{ steps.binary.outputs.dest }}
@@ -126,7 +126,7 @@ jobs:
             - uses: actions/checkout@v6
 
             - name: Download all build artifacts
-              uses: actions/download-artifact@v4
+              uses: actions/download-artifact@v8
               with:
                   # Collect every binary-* artifact into a flat dist/ directory.
                   pattern: binary-*
@@ -140,7 +140,7 @@ jobs:
                   cat SHA256SUMS.txt
 
             - name: Create GitHub release
-              uses: softprops/action-gh-release@v2
+              uses: softprops/action-gh-release@v3
               with:
                   # Pulls release notes from merged PRs and commits since the last tag.
                   generate_release_notes: true
